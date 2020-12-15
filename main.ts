@@ -1,4 +1,7 @@
 let x = 1
+/**
+ * Cutebot with color changing LEDs
+ */
 basic.forever(function () {
     basic.pause(50)
     cuteBot.moveTime(cuteBot.Direction.forward, 20, 0.2)
