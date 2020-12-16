@@ -1,34 +1,17 @@
+let sonar = 0
 /**
  * Cutebot with color changing LEDs
  */
-cuteBot.colorLight(cuteBot.RGBLights.RGB_L, 0x00ffff)
-cuteBot.colorLight(cuteBot.RGBLights.RGB_R, 0x00ffff)
-basic.pause(200)
-cuteBot.colorLight(cuteBot.RGBLights.RGB_L, 0xff8000)
-cuteBot.colorLight(cuteBot.RGBLights.RGB_L, 0xff8000)
-basic.pause(200)
-cuteBot.closeheadlights()
 basic.forever(function () {
-    basic.pause(50)
-    cuteBot.moveTime(cuteBot.Direction.forward, 20, 0.2)
-    cuteBot.motors(25, 10)
-    basic.pause(4000)
-    cuteBot.moveTime(cuteBot.Direction.forward, 20, 0.2)
-    cuteBot.motors(10, 25)
-    basic.pause(4000)
-    cuteBot.moveTime(cuteBot.Direction.forward, 20, 0.2)
-    cuteBot.moveTime(cuteBot.Direction.forward, 20, 0.19)
-})
-control.inBackground(function () {
-    basic.pause(2000)
-    while (true) {
-        basic.pause(2000)
-        if (input.lightLevel() <= 0) {
-            cuteBot.colorLight(cuteBot.RGBLights.RGB_L, 0xffff00)
-            cuteBot.colorLight(cuteBot.RGBLights.RGB_R, 0xff8000)
-        } else {
-            cuteBot.closeheadlights()
+    sonar = cuteBot.ultrasonic(cuteBot.SonarUnit.Centimeters)
+    if (sonar > 1 && sonar < 30) {
+        for (let index = 0; index < 4; index++) {
+            music.playTone(880, music.beat(BeatFraction.Sixteenth))
         }
-        basic.pause(100)
+        basic.pause(1000)
+        cuteBot.motors(randint(-50, -100), 0)
+        basic.pause(500)
+    } else {
+        cuteBot.moveTime(cuteBot.Direction.forward, 20, 2)
     }
 })
